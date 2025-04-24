@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<U3ROFS_Autosiskolak xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XMLSchemaU3ROFS.xsd">
+  <Autosiskola ai_id="1">
+    <nev >Go Car</nev>
+    <cim >1111 Budapest, Kossuth Lajos utca 1.</cim>
+    <telefon >06-70-123-4567</telefon>
+    <telefon >06-30-123-4567</telefon>
+  </Autosiskola>
+
+  <Autosiskola ai_id="2">
+    <nev >Guruljunk</nev>
+    <cim >1111 Budapest, Petõfi utca 2.</cim>
+    <telefon >06-70-123-4567</telefon>
+  </Autosiskola>
+
+  <Autosiskola ai_id="3">
+    <nev >UNI</nev>
+    <cim >3515, Miskolc, Egyetem út 1</cim>
+    <telefon >06-70-123-4567</telefon>
+    <telefon >06-30-123-4567</telefon>
+  </Autosiskola>
+
+
+  <Ugyfel ai_id="1" o_id="1" u_id="1">
+    <nev >
+      <vezeteknev >Nagy</vezeteknev>
+      <keresztnev >Máté</keresztnev>
+    </nev>
+    <telefon >06-70-123-4567</telefon>
+    <telefon >06-30-123-4567</telefon>
+    <kor >18</kor>
+    <szuletesi_datum >2003-01-01</szuletesi_datum>
+  </Ugyfel>
+
+  <Ugyfel ai_id="2" o_id="2" u_id="2">
+    <nev >
+      <vezeteknev >Gyáni</vezeteknev>
+      <keresztnev >Kevin</keresztnev>
+    </nev>
+    <telefon >06-70-123-4567</telefon>
+    <kor >18</kor>
+    <szuletesi_datum >2003-01-01</szuletesi_datum>
+  </Ugyfel>
+
+  <Ugyfel ai_id="3" o_id="3" u_id="3">
+    <nev >
+      <vezeteknev >Kovács</vezeteknev>
+      <keresztnev >Ádám</keresztnev>
+    </nev>
+    <telefon >06-70-123-4567</telefon>
+    <telefon >06-30-123-4567</telefon>
+    <kor >18</kor>
+    <szuletesi_datum >2003-01-01</szuletesi_datum>
+  </Ugyfel>
+
+
+  <Oktato ai_id="1" o_id="1">
+    <nev >Kovács János</nev>
+    <fizetes >300000</fizetes>
+    <telefon >06-70-123-4567</telefon>
+    <telefon >06-30-123-4567</telefon>
+  </Oktato>
+
+  <Oktato ai_id="2" o_id="2">
+    <nev >Kiss János</nev>
+    <fizetes >300000</fizetes>
+    <telefon >06-70-123-4567</telefon>
+  </Oktato>
+
+  <Oktato ai_id="3" o_id="3">
+    <nev >Nagy János</nev>
+    <fizetes >300000</fizetes>
+    <telefon >06-70-123-4567</telefon>
+    <telefon >06-30-123-4567</telefon>
+  </Oktato>
+
+
+  <Auto au_id="1" o_id="1">
+    <rendszam >ABC-111</rendszam>
+    <tipus >Astra</tipus>
+    <marka >Opel</marka>
+  </Auto>
+
+  <Auto au_id="2" o_id="2">
+    <rendszam >ABC-222</rendszam>
+    <tipus >Focus</tipus>
+    <marka >Ford</marka>
+  </Auto>
+
+  <Auto au_id="3" o_id="3">
+    <rendszam >ABC-333</rendszam>
+    <tipus >Corolla</tipus>
+    <marka >Toyota</marka>
+  </Auto>
+
+
+  <Szerelo au_id="1" sz_id="1">
+    <nev >Kovács Abdul</nev>
+    <fizetes >400000</fizetes>
+    <telefon >06-70-123-1111</telefon>
+    <telefon >06-30-123-1112</telefon>
+  </Szerelo>
+
+  <Szerelo au_id="2" sz_id="2">
+    <nev >Kiss Adorján</nev>
+    <fizetes >420000</fizetes>
+    <telefon >06-70-123-2222</telefon>
+  </Szerelo>
+
+  <Szerelo au_id="3" sz_id="3">
+    <nev >Nagy Ferenc</nev>
+    <fizetes >450000</fizetes>
+    <telefon >06-70-123-3333</telefon>
+    <telefon >06-30-123-3334</telefon>
+  </Szerelo>
+
+
+  <cserealkatreszek au_id="1" sz_id="1">
+    <cserealkatresz >fékbetét</cserealkatresz>
+    <cserealkatresz >féktárcsa</cserealkatresz>
+  </cserealkatreszek>
+
+  <cserealkatreszek au_id="2" sz_id="2">
+    <cserealkatresz >motor</cserealkatresz>
+    <cserealkatresz >lengõkar</cserealkatresz>
+  </cserealkatreszek>
+
+  <cserealkatreszek au_id="3" sz_id="3">
+    <cserealkatresz >szélvédõ</cserealkatresz>
+  </cserealkatreszek>
+
+</U3ROFS_Autosiskolak>

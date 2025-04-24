@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <!-- Egyszerű típusok, saját típusok meghatározása -->
+    <xs:element name="nev" type="xs:string" />
+    <xs:element name="cim" type="xs:string" />
+    <xs:element name="telefon" type="TelefonszámTípus" />
+    <xs:element name="kor" type="xs:integer" />
+    <xs:element name="szuletesi_datum" type="SzuletesiDatumTipus" />
+    <xs:element name="fizetes" type="xs:integer" />
+    <xs:element name="vezeteknev" type="xs:string" />
+    <xs:element name="keresztnev" type="xs:string" />
+    <xs:element name="rendszam" type="xs:string" />
+    <xs:element name="tipus" type="xs:string" />
+    <xs:element name="marka" type="xs:string" />
+    <xs:element name="cserealkatresz" type="xs:string" />
+
+
+    <xs:simpleType name="TelefonszámTípus">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{2}-\d{2}-\d{3}-\d{4}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="SzuletesiDatumTipus">
+        <xs:restriction base="xs:date">
+            <xs:minInclusive value="1900-01-01" />
+            <xs:maxInclusive value="2005-12-31" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Komplex típusok meghatározása -->
+    <xs:complexType name="AutosiskolaTipus">
+        <xs:sequence>
+            <xs:element name="nev" type="xs:string" />
+            <xs:element name="cim" type="xs:string" />
+            <xs:element ref="telefon" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="ai_id" type="xs:integer" />
+    </xs:complexType>
+
+    <xs:complexType name="UgyfelTipus">
+        <xs:sequence>
+            <xs:element name="nev">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="vezeteknev" />
+                        <xs:element ref="keresztnev" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element ref="telefon" maxOccurs="unbounded" />
+            <xs:element ref="kor" minOccurs="1" />
+            <xs:element ref="szuletesi_datum" />
+        </xs:sequence>
+        <xs:attribute name="u_id" type="xs:integer" />
+        <xs:attribute name="ai_id" type="xs:integer" />
+        <xs:attribute name="o_id" type="xs:integer" />
+    </xs:complexType>
+
+    <xs:complexType name="OktatoTipus">
+        <xs:sequence>
+            <xs:element ref="nev" />
+            <xs:element ref="fizetes" />
+            <xs:element ref="telefon" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="o_id" type="xs:integer" />
+        <xs:attribute name="ai_id" type="xs:integer" />
+    </xs:complexType>
+
+    <xs:complexType name="AutoTipus">
+        <xs:sequence>
+            <xs:element ref="rendszam" />
+            <xs:element ref="tipus" />
+            <xs:element ref="marka" />
+        </xs:sequence>
+        <xs:attribute name="au_id" type="xs:integer" />
+        <xs:attribute name="o_id" type="xs:integer" />
+    </xs:complexType>
+
+    <xs:complexType name="SzereloTipus">
+        <xs:sequence>
+            <xs:element ref="nev" />
+            <xs:element ref="fizetes" />
+            <xs:element ref="telefon" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="sz_id" type="xs:integer" />
+        <xs:attribute name="au_id" type="xs:integer" />
+    </xs:complexType>
+
+    <xs:complexType name="CserealkatreszTipus">
+        <xs:sequence>
+            <xs:element ref="cserealkatresz" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="au_id" type="xs:integer" />
+        <xs:attribute name="sz_id" type="xs:integer" />
+    </xs:complexType>
+
+    <!-- Gyökér elem meghatározása -->
+    <xs:element name="U3ROFS_Autosiskolak">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Autosiskola" type="AutosiskolaTipus" maxOccurs="unbounded" />
+                <xs:element name="Ugyfel" type="UgyfelTipus" maxOccurs="unbounded" />
+                <xs:element name="Oktato" type="OktatoTipus" maxOccurs="unbounded" />
+                <xs:element name="Auto" type="AutoTipus" maxOccurs="unbounded" />
+                <xs:element name="Szerelo" type="SzereloTipus" maxOccurs="unbounded" />
+                <xs:element name="cserealkatreszek" type="CserealkatreszTipus" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+
+        <!--Elsődleges
+        kulcsok-->
+        <xs:key name="AutosiskolaPK">
+            <xs:selector xpath="Autosiskola" />
+            <xs:field xpath="@ai_id" />
+        </xs:key>
+
+        <xs:key name="UgyfelPK">
+            <xs:selector xpath="Ugyfel" />
+            <xs:field xpath="@u_id" />
+        </xs:key>
+
+        <xs:key name="OktatoPK">
+            <xs:selector xpath="Oktato" />
+            <xs:field xpath="@o_id" />
+        </xs:key>
+
+        <xs:key name="AutoPK">
+            <xs:selector xpath="Auto" />
+            <xs:field xpath="@au_id" />
+        </xs:key>
+
+        <xs:key name="SzereloPK">
+            <xs:selector xpath="Szerelo" />
+            <xs:field xpath="@sz_id" />
+        </xs:key>
+
+        <!-- Idegen kulcsok -->
+        <xs:keyref name="UgyfelAIFK" refer="AutosiskolaPK">
+            <xs:selector xpath="Ugyfel" />
+            <xs:field xpath="@ai_id" />
+        </xs:keyref>
+
+        <xs:keyref name="UgyfelOFK" refer="OktatoPK">
+            <xs:selector xpath="Ugyfel" />
+            <xs:field xpath="@o_id" />
+        </xs:keyref>
+
+        <xs:keyref name="OktatoFK" refer="AutosiskolaPK">
+            <xs:selector xpath="Oktato" />
+            <xs:field xpath="@ai_id" />
+        </xs:keyref>
+
+        <xs:keyref name="AutoFK" refer="OktatoPK">
+            <xs:selector xpath="Auto" />
+            <xs:field xpath="@o_id" />
+        </xs:keyref>
+
+        <xs:keyref name="SzereloFK" refer="AutoPK">
+            <xs:selector xpath="Szerelo" />
+            <xs:field xpath="@au_id" />
+        </xs:keyref>
+
+        <xs:keyref name="CserealkatreszAUFK" refer="AutoPK">
+            <xs:selector xpath="Cserealkatresz" />
+            <xs:field xpath="@au_id" />
+        </xs:keyref>
+
+        <xs:keyref name="CserealkatreszSFK" refer="SzereloPK">
+            <xs:selector xpath="Cserealkatresz" />
+            <xs:field xpath="@sz_id" />
+        </xs:keyref>
+
+        <!-- 1:1 -->
+        <xs:unique name="Auto">
+            <xs:selector xpath="Auto" />
+            <xs:field xpath="@o_id" />
+        </xs:unique>
+    </xs:element>
+</xs:schema>
