@@ -16,6 +16,7 @@
     "@mui/material": "^7.0.2",
     "@mui/material-nextjs": "^7.0.2",
     "@mui/x-data-grid": "^8.1.0",
+    "axios": "^1.9.0",
     "mongodb": "^6.16.0",
     "mongoose": "^8.13.2",
     "next": "15.3.1",

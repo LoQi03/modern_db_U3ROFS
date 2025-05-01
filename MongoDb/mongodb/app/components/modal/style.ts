@@ -8,10 +8,11 @@ export const ModalContainer = styled(Box)({
   transform: "translate(-50%, -50%)",
   minWidth: "500px",
   minHeight: "400px",
-  backgroundColor: "green",
+  backgroundColor: "white",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
   borderRadius: "20px",
   padding: "20px",
+  color: "black",
 });
 
 export const ModalHeader = styled(Box)({

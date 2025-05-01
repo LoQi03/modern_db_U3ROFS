@@ -1,8 +1,9 @@
 import { ObjectId } from "mongodb";
 
-export interface DrivingSchool {
+export interface Instructor {
   _id: ObjectId;
+  i_id: ObjectId;
   name: string;
+  salary: number;
   phone: string;
-  address: string;
 }

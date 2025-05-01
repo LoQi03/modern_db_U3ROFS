@@ -1,13 +1,6 @@
-// app/api/items/route.ts
 import clientPromise from "@/app/lib/mongodb";
+import { DrivingSchool } from "@/app/models/driving_school";
 import { NextResponse } from "next/server";
-
-// DrivingSchool interface importálása, ha máshonnan jön
-export interface DrivingSchool {
-  _id?: string;
-  name: string;
-  phones: string[];
-}
 
 export async function GET() {
   try {
