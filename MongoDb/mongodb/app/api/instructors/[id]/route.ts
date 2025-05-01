@@ -11,7 +11,7 @@ export async function GET(
   try {
     const client = await clientPromise;
     const db = client.db();
-    const collection = db.collection<Instructor>("DrivingSchools");
+    const collection = db.collection<Instructor>("Instructors");
 
     const { id } = await params;
 
@@ -42,7 +42,7 @@ export async function PUT(
   try {
     const client = await clientPromise;
     const db = client.db();
-    const collection = db.collection<Instructor>("DrivingSchools");
+    const collection = db.collection<Instructor>("Instructors");
 
     const { id } = await params;
 
@@ -80,7 +80,7 @@ export async function DELETE(
   try {
     const client = await clientPromise;
     const db = client.db();
-    const collection = db.collection("DrivingSchools");
+    const collection = db.collection("Instructors");
     const { id } = await params;
 
     if (!ObjectId.isValid(id)) {

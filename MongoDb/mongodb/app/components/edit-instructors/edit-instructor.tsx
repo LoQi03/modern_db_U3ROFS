@@ -1,18 +1,21 @@
+'use client'
 import { Instructor } from "@/app/models/instructor"; 
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useModal } from "../providers/modal-provider";
 
 export interface EditInstructorProps {
   id?: ObjectId; 
+  d_id:string
   load: () => Promise<void>; 
 }
 
 export const EditInstructor = (props: EditInstructorProps) => {
   const [instructor, setInstructor] = useState<Instructor>({
+    d_id: new ObjectId(props.d_id),
     name: '',
     phone: '',
     salary: 0,

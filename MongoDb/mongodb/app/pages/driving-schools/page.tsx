@@ -54,7 +54,7 @@ const DrivingSchools = () => {
       <Button
         variant="outlined"
         color="primary"
-        onClick={() => router.push('driving-schools/' + params.row._id)}
+        onClick={() => router.push('driving-schools/instructors/' + params.row._id)}
       >
         Open
       </Button>

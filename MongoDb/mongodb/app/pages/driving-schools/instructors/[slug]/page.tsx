@@ -3,16 +3,18 @@ import { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Paper, Button } from '@mui/material';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useModal } from '@/app/components/providers/modal-provider';
 import { Instructor } from '@/app/models/instructor';
 import { EditInstructor } from '@/app/components/edit-instructors/edit-instructor';
 
-
 const Instructors = () => {
   const [instructors, setInstructors] = useState<Instructor[]>([]);
   const router = useRouter();
+  const params = useParams();
   const modalContext = useModal();
+
+  const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
 
   const columns: GridColDef[] = [
     { field: '_id', headerName: 'ID', flex: 1 },
@@ -66,28 +68,34 @@ const Instructors = () => {
   const paginationModel = { page: 0, pageSize: 10 };
 
   const load = async () => {
-    const res = await axios.get<Instructor[]>('/api/instructors');
+    const res = await axios.get<Instructor[]>(`/api/driving-schools/${params.slug}/instructors`);
     setInstructors(res.data);
   };
 
   useEffect(() => {
-    load().catch(error => {
-      console.error('Hiba történt az oktatók lekérésekor:', error);
-    });
-  }, []);
+    if(!params.slug)
+      return
+
+    load();
+  }, [!params.slug]);
 
   const handleUpdate = (instructor: Instructor) => {
     if (!instructor._id) return;
 
+    if(!slug) return;
+
     modalContext.openModal(
-      <EditInstructor id={instructor._id} load={load} />,
+      <EditInstructor d_id={slug} id={instructor._id} load={load} />,
       `Update ${instructor.name}`
     );
   };
 
   const handleCreate = () => {
+
+    if(!slug) return;
+
     modalContext.openModal(
-      <EditInstructor load={load} />,
+      <EditInstructor d_id={slug} load={load} />,
       `Create Instructor`
     );
   };
