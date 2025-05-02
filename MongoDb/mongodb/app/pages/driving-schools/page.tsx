@@ -7,9 +7,10 @@ import { useModal } from '../../components/providers/modal-provider';
 import axios from 'axios';
 import { EditDrivingSchool } from '../../components/edit-driving-school/edit-driving-school';
 import { useRouter } from 'next/navigation';
+import { DrivingSchoolDetailsDto } from '@/app/api/driving-schools/route';
 
 const DrivingSchools = () => {
-  const [schools, setSchools] = useState<DrivingSchool[]>([]);
+  const [schools, setSchools] = useState<DrivingSchoolDetailsDto[]>([]);
   const router = useRouter()
   const modalContext = useModal();
 
@@ -18,6 +19,7 @@ const DrivingSchools = () => {
   { field: 'name', headerName: 'Name', flex: 2 },
   { field: 'phone', headerName: 'Phones', flex: 3 },
   { field: 'address', headerName: 'Address', flex: 4 },
+  { field: 'instructorCount', headerName: 'Instructors', flex: 5 },
   {
     field: 'update',
     headerName: 'Update',
@@ -65,7 +67,7 @@ const DrivingSchools = () => {
   const paginationModel = { page: 0, pageSize: 10 };
 
   const load = async ()=>{
-    const res = await axios.get<DrivingSchool[]>('/api/driving-schools');
+    const res = await axios.get<DrivingSchoolDetailsDto[]>('/api/driving-schools');
     setSchools(res.data);
   }
 
@@ -113,7 +115,8 @@ const DrivingSchools = () => {
 
   return (
     <Paper sx={{ height: '95dvh', width: '100%' }}>
-      <div className='w-full flex justify-end p-3' style={{height:'5dvh'}}>
+      <div className='w-full flex justify-between p-3' style={{height:'5dvh'}}>
+        <h1 className='font-bold text-4xl'>Schools</h1>
         <Button onClick={()=> handleCreate()} variant="contained">Create</Button>
       </div>
       <DataGrid

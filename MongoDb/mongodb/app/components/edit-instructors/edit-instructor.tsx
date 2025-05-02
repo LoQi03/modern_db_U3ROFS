@@ -2,20 +2,21 @@
 import { Instructor } from "@/app/models/instructor"; 
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { ObjectId } from 'mongodb';
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useModal } from "../providers/modal-provider";
+import { CreateInstructor } from "@/app/api/instructors/route";
+
 
 export interface EditInstructorProps {
-  id?: ObjectId; 
+  id?: string; 
   d_id:string
   load: () => Promise<void>; 
 }
 
 export const EditInstructor = (props: EditInstructorProps) => {
-  const [instructor, setInstructor] = useState<Instructor>({
-    d_id: new ObjectId(props.d_id),
+  const [instructor, setInstructor] = useState({
     name: '',
     phone: '',
     salary: 0,
@@ -31,7 +32,7 @@ export const EditInstructor = (props: EditInstructorProps) => {
     };
 
     fetchData();
-  }, [props.id]);
+  }, [props]);
 
   const update = async () => {
     await axios.put<Instructor>(`/api/instructors/${props.id}`, instructor);
@@ -40,7 +41,14 @@ export const EditInstructor = (props: EditInstructorProps) => {
   };
 
   const create = async () => {
-    await axios.post<Instructor>('/api/instructors', instructor);
+    const createInstructor : CreateInstructor =
+    {
+      name:instructor.name,
+      salary:instructor.salary,
+      phone: instructor.phone,
+      d_id: props.d_id
+    }
+    await axios.post<Instructor>('/api/instructors', createInstructor);
     await props.load();
     modalContext.closeModal();
   };

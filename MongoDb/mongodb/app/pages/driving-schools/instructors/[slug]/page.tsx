@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Paper, Button } from '@mui/material';
+import { Paper, Button, TextField } from '@mui/material';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { useModal } from '@/app/components/providers/modal-provider';
@@ -10,6 +10,7 @@ import { EditInstructor } from '@/app/components/edit-instructors/edit-instructo
 
 const Instructors = () => {
   const [instructors, setInstructors] = useState<Instructor[]>([]);
+  const [searchText, setSearchText] = useState<string>('')
   const router = useRouter();
   const params = useParams();
   const modalContext = useModal();
@@ -21,6 +22,7 @@ const Instructors = () => {
     { field: 'name', headerName: 'Name', flex: 2 },
     { field: 'phone', headerName: 'Phone', flex: 2 },
     { field: 'salary', headerName: 'Salary', flex: 1 },
+    { field: 'customersCount', headerName: 'Customers', flex: 5 },
     {
       field: 'update',
       headerName: 'Update',
@@ -57,7 +59,7 @@ const Instructors = () => {
         <Button
           variant="outlined"
           color="primary"
-          onClick={() => router.push('instructors/' + params.row._id)}
+          onClick={() => router.push(slug+'/customers/'+ params.row._id)}
         >
           Open
         </Button>
@@ -85,7 +87,7 @@ const Instructors = () => {
     if(!slug) return;
 
     modalContext.openModal(
-      <EditInstructor d_id={slug} id={instructor._id} load={load} />,
+      <EditInstructor d_id={slug} id={instructor._id.toString()} load={load} />,
       `Update ${instructor.name}`
     );
   };
@@ -112,10 +114,20 @@ const Instructors = () => {
     }
   };
 
+  const search = async() =>{
+    const res = await axios.post<Instructor[]>(`/api/driving-schools/${params.slug}/instructors`, { query: searchText });
+    setInstructors(res.data);
+  }
+
   return (
     <Paper sx={{ height: '95dvh', width: '100%' }}>
-      <div className='w-full flex justify-end p-3' style={{ height: '5dvh' }}>
-        <Button onClick={handleCreate} variant="contained">Create</Button>
+      <div className='w-full flex justify-between gap-4 px-3 py-2' style={{height:'5dvh'}}>
+        <h1 className='font-bold text-4xl'>Instructors</h1>
+        <div className='flex w-full h-full items-center gap-5'>
+          <TextField variant="standard" className='w-full' onChange={(e) => setSearchText(e.target.value)}/>
+          <Button onClick={()=> search()} variant="outlined">Search</Button>
+        </div>
+        <Button onClick={()=> handleCreate()} variant="contained">Create</Button>
       </div>
       <DataGrid
         rows={instructors}
